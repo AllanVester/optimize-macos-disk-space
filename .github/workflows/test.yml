@@ -1,0 +1,43 @@
+name: Maximize macOS Disk Space
+
+on:
+  workflow_dispatch:
+
+jobs:
+  optimize:
+    name: Maximize macOS Disk Space
+    runs-on: macos-latest
+    steps:
+        - name: Maximize macOS Disk Space
+          run: |
+            echo "=== Disk space before cleanup ==="
+            df -h /
+            
+            # 1. Remove Android SDKs (Saves ~10-15 GB)
+            # Only run this if you aren't building an Android project
+            sudo rm -rf /Users/runner/Library/Android/sdk
+            
+            # 2. Remove .NET SDKs (Saves ~2-3 GB)
+            # Only run this if you aren't building a .NET project
+            sudo rm -rf /usr/local/share/dotnet
+            
+            # 3. Remove old/unused Xcode versions (Saves 10-20 GB PER VERSION)
+            # macOS runners have many Xcodes installed. If you only need one, 
+            # delete the older ones. The asterisk (*) acts as a wildcard.
+            # Example: Deleting Xcode 13 and 14 to leave Xcode 15 intact.
+            sudo rm -rf /Applications/Xcode_13*.app
+            sudo rm -rf /Applications/Xcode_14*.app
+            # Or, if you don't need Xcode AT ALL (e.g., pure Node/Python project):
+            # sudo rm -rf /Applications/Xcode_*.app
+            
+            # 4. Remove Hosted Tool Caches (Saves ~5-10 GB)
+            # This contains pre-cached versions of Node, Python, Ruby, Go, etc.
+            # If you use setup-node/setup-python, it might re-download what it needs.
+            sudo rm -rf /Users/runner/hostedtoolcache
+            
+            # 5. Clear Homebrew Caches (Saves ~1-2 GB)
+            brew cleanup
+            rm -rf $(brew --cache)
+            
+            echo "=== Disk space after cleanup ==="
+            df -h /
