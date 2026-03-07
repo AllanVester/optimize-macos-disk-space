@@ -6,7 +6,7 @@ on:
 jobs:
   optimize:
     name: Maximize Windows Disk Space
-    runs-on: windows-latest
+    runs-on: windows-2022
     steps:
       - name: Maximize Windows Build Space
         shell: bash
