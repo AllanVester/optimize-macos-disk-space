@@ -6,7 +6,7 @@ on:
 jobs:
   optimize:
     name: Maximize Linux Disk Space
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
       - name: Maximize Linux Disk Space
         uses: AdityaGarg8/remove-unwanted-software@v5
