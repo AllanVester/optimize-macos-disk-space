@@ -6,7 +6,7 @@ on:
 jobs:
   optimize:
     name: Maximize macOS Disk Space
-    runs-on: macos-latest
+    runs-on: macos-14
     steps:
         - name: Maximize macOS Disk Space
           run: |
