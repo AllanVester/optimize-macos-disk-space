@@ -1,0 +1,21 @@
+name: Maximize Linux Disk Space
+
+on:
+  workflow_dispatch:
+
+jobs:
+  optimize:
+    name: Maximize Linux Disk Space
+    runs-on: ubuntu-slim
+    steps:
+      - name: Maximize Linux Disk Space
+        uses: AdityaGarg8/remove-unwanted-software@v5
+        with:
+          remove-dotnet: "true"
+          remove-android: "true"
+          remove-haskell: "true"
+          remove-codeql: "true"
+          remove-docker-images: "true"
+          remove-large-packages: "true"
+          remove-cached-tools: "true"
+          remove-swapfile: "true"
