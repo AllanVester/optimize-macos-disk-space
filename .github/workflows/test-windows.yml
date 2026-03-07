@@ -1,0 +1,36 @@
+name: Maximize Windows Disk Space
+
+on:
+  workflow_dispatch:
+
+jobs:
+  optimize:
+    name: Maximize Windows Disk Space
+    runs-on: windows-2025-vs2026
+    steps:
+      - name: Maximize Windows Build Space
+        shell: bash
+        run: |
+          echo "=== Disk space before cleanup ==="
+          df -h /c
+          
+          # 1. Remove Android SDKs & NDKs (Saves ~10+ GB)
+          # Only run if you aren't doing Android builds on Windows
+          rm -rf "C:/Program Files (x86)/Android" || true
+          rm -rf "C:/Microsoft/AndroidNDK64" || true
+          
+          # 2. Remove Docker Data (Saves ~10+ GB)
+          # If you aren't building or running Docker containers in this job, wipe it.
+          rm -rf "C:/ProgramData/Docker" || true
+          
+          # 3. Remove Hosted Tool Caches (Saves ~5-10 GB)
+          # This wipes pre-cached versions of Go, Node, Python, Ruby, etc.
+          # The $AGENT_TOOLSDIRECTORY environment variable is provided by GitHub.
+          rm -rf "$AGENT_TOOLSDIRECTORY" || true
+          
+          # 4. Remove Haskell/GHC (Saves ~2-5 GB)
+          rm -rf "C:/ProgramData/chocolatey/lib/ghc*" || true
+          rm -rf "C:/ProgramData/chocolatey/lib/cabal*" || true
+          
+          echo "=== Disk space after cleanup ==="
+          df -h /c
