@@ -6,8 +6,20 @@ on:
 jobs:
   optimize:
     name: Maximize macOS Disk Space
-    runs-on: macos-15-intel
+    runs-on: macos-14
     steps:
+        - name: Display runner information
+          run: |
+            echo "cpu-core:       $(sysctl -n hw.ncpu)"
+            echo "cpu-model:      $(sysctl -n machdep.cpu.brand_string)"
+            echo "hostname:       $(hostname)"
+            echo "kernel-release: $(uname -r)"
+            echo "kernel-version: $(uname -v)"
+            echo "name:           $(sw_vers -productName)"
+            echo "platform:       $(uname -s)"
+            echo "release:        $(sw_vers -productVersion)"
+            echo "total-memory:   $(sysctl -n hw.memsize)"
+          
         - name: Maximize macOS Disk Space
           run: |
             echo "=== Disk space before cleanup ==="
