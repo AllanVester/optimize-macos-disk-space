@@ -6,7 +6,7 @@ on:
 jobs:
   optimize:
     name: Maximize Windows Disk Space
-    runs-on: windows-2022
+    runs-on: windows-2025
     steps:
       - name: Display runner information
         shell: pwsh
