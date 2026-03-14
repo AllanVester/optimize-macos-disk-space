@@ -8,6 +8,16 @@ jobs:
     name: Maximize Windows Disk Space
     runs-on: windows-2022
     steps:
+      - name: Display runner information
+        shell: pwsh
+        run: |
+          Write-Host "cpu-core:       $((Get-CimInstance Win32_ComputerSystem).NumberOfLogicalProcessors)"
+          Write-Host "cpu-model:      $((Get-CimInstance Win32_Processor).Name)"
+          Write-Host "hostname:       $env:COMPUTERNAME"
+          Write-Host "os-name:        $((Get-CimInstance Win32_OperatingSystem).Caption)"
+          Write-Host "os-version:     $([Environment]::OSVersion.VersionString)"
+          Write-Host "total-memory:   $((Get-CimInstance Win32_ComputerSystem).TotalPhysicalMemory)"
+          
       - name: Maximize Windows Build Space
         shell: bash
         run: |
