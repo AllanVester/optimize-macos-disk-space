@@ -6,7 +6,7 @@ on:
 jobs:
   optimize:
     name: Maximize macOS Disk Space
-    runs-on: macos-15
+    runs-on: macos-15-intel
     steps:
         - name: Display runner information
           run: |
